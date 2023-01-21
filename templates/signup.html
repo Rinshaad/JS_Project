@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js project</title>
+    <style>
+        h1{
+            text-align: center;
+            color: green;
+        }
+        button {
+            background-color: #04AA6D;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            
+          }
+          .container{
+            padding: 60px ;
+            margin-left: 400px;
+          }
+          input{
+            margin-top: 20px;
+            margin-left: 10px;
+          }
+    </style>
+</head>
+<body>
+    <h1>Sign Up</h1>
+
+   <form action="{% url 'login' %}">
+        <div class="container">
+          <label for="fname"><b>First Name</b></label>
+          <input type="text" id="fname" name="firstname" placeholder="Your name.."> <span id="fname_err"></span> <br><br>
+      
+          <label for="lname"><b>Last Name</b></label>
+          <input type="text" id="lname" name="lastname" placeholder="Your last name.."><br><br>
+      
+      
+          <label for="email"><b>Email</b></label>
+          <input type="text" placeholder="Enter Email" name="email" id="email" required> <span id="email_err"></span> <br><br>
+
+          <label for="psw"><b>Mobile</b></label>
+          <input type="number" placeholder="Enter mobile " name="psw" id="mobile" required><span id="mobile_err"></span><br><br>
+          
+          <label for="radio"><b>Gender</b></label>
+          <input type="radio" name="gender" id="male">Male
+          <input type="radio" name="gender" id="female">Female &nbsp; <span id="gender"></span><br><br>
+
+      
+          <label for="psw"><b>Password</b></label>
+          <input type="password" placeholder="Enter Password" name="psw" id="password" required><span id="password_err"></span><br><br>
+      
+          <label for="psw-repeat"><b>Confirm Password</b></label>
+          <input type="password" placeholder="Repeat Password" name="psw-repeat" id="confirmpassword" required><span id="cpassword_err"></span><br><br>
+      
+          <button type="submit" class="signupbtn" onclick=" return validate()">Sign Up</button>
+        
+        </div>
+  </form>
+
+    <script>
+      function validate(){
+        let fname=document.getElementById('fname')
+        let lname=document.getElementById('lname')
+        let email=document.getElementById('email')
+        let male=document.getElementById('male')
+        let female=document.getElementById('female')
+        let password=document.getElementById('password')
+        let confirmpassword=document.getElementById('confirmpassword')
+        let mobile=document.getElementById('mobile')
+        let fname_err=document.getElementById('fname_err')
+        let gender=document.getElementById('gender')
+        let email_err=document.getElementById('email_err')
+        let password_err=document.getElementById('password_err')
+        let mobile_err=document.getElementById('mobile_err')
+        let cpassword_err=document.getElementById('cpassword_err')
+
+        let fname_pattern=/^[a-z ,.'-]+$/i
+        let email_pattern=/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+        let mobile_pattern= /^[6-9]\d{9}$/
+        let password_pattern= /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
+
+
+
+
+
+// for name checking
+
+        if(fname.value==''){
+          fname_err.innerHTML='*please enter a name'
+          fname_err.style.color='red'
+          fname.style.borderColor='red'
+        
+          return false
+        }
+        else{
+
+          if(fname.value.match(fname_pattern)==null){
+
+           fname_err.innerHTML='*Name should not contain numbers'
+           fname_err.style.color='red'
+           fname.style.borderColor='red'
+           return false  
+          }
+          
+          fname_err.innerHTML=''
+          fname.style.borderColor=''
+
+        }
+
+// for email checking
+
+        if(email.value==''){
+          email_err.innerHTML='*please enter a email'
+          email_err.style.color='red'
+          email.style.borderColor=' red'
+        
+          return false
+        }
+        else{
+          if(email.value.match(email_pattern)==null){
+
+            email_err.innerHTML='*Enter a valid email'
+            email_err.style.color='red'
+            email.style.borderColor='red'
+            return false  
+           }
+
+          email_err.innerHTML=''
+          email.style.borderColor=''
+
+// data storing localstorage
+      
+          localStorage.setItem('useremail',email.value)
+
+
+        }
+
+// for mobile checking
+
+        if(mobile.value==''){
+          mobile_err.innerHTML='*please enter the mobile number'
+          mobile_err.style.color='red'
+          mobile.style.borderColor='red'
+        
+          return false
+        }
+        else{
+          if(mobile.value.match(mobile_pattern)==null){
+
+            mobile_err.innerHTML='*Enter valid mobile number'
+            mobile_err.style.color='red'
+            mobile.style.borderColor='red'
+            return false  
+           }
+          mobile_err.innerHTML=''
+          mobile.style.borderColor=''
+
+        }
+
+// for gender checking
+
+        if(male.checked==false && female.checked== false){
+          gender.innerHTML='*please select one'
+          gender.style.color='red'
+
+          return false
+
+        }
+        else{
+          gender.innerHTML=''
+          gender.style.color=''
+        }
+
+// for password checking
+
+        if(password.value==''){
+          password_err.innerHTML='*please enter the password'
+          password_err.style.color='red'
+          password.style.borderColor=' red'
+        
+          return false
+        }
+        else{
+          if(password.value.match(password_pattern)==null){
+            password_err.innerHTML='*Password should be one letter and number'
+            password_err.style.color='red'
+            password.style.borderColor=' red'
+
+            return false
+          }
+          if(confirmpassword.value != password.value){
+            cpassword_err.innerHTML='*Password does\'nt match'
+            cpassword_err.style.color='red'
+            return false
+            }
+          password_err.innerHTML=''
+          password.style.borderColor=''
+          cpassword_err.style.color=''
+          cpassword_err.innerHTML=''
+
+// data storing localstorage
+
+        localStorage.setItem('userpassword',password.value)
+
+
+
+
+        }
+
+// for confirm password checking
+
+
+        if(confirmpassword.value==''){
+          cpassword_err.innerHTML='*Re enter the password'
+          cpassword_err.style.color='red'
+          cpassword.style.borderColor=' red'
+        
+          return false
+        }
+        else{
+         
+          cpassword_err.innerHTML=''
+          cpassword.style.borderColor=''
+
+        }
+
+      }
+
+
+
+
+    </script>
+</body>
+</html>

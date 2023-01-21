@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            padding: 16px;
+          }
+          button {
+            background-color: #04AA6D;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            
+          }
+          form {
+            border-top: 3px solid #f1f1f1;
+            border-bottom: 3px solid #f1f1f1;
+
+            width: auto;
+            margin-left: 400px;
+            margin-top: 150px;
+
+          }
+          h1{
+            color: #04AA6D;
+            text-align: center;
+          }          
+    </style>
+</head>
+<body>
+    <h1><u>login form</u> </h1>
+    <form action="">
+    <div class="container">
+        
+        <label for="email"><b>Email</b></label>
+        <input type="email" placeholder="Enter email" name="email"  id="lemail" required><span id="email_err"></span>
+    <br><br>
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" id="lpassword" required><span id="password_err"></span>
+    <br><br>
+        <button type="submit" onclick=" return login()">Login</button>
+
+        </div>
+    </form>
+
+    <script>
+      function login(){
+        let lemail=document.getElementById('lemail')
+        let lpassword=document.getElementById('lpassword')
+        let password_err=document.getElementById('password_err')
+        let email_err=document.getElementById('email_err')
+
+//get data from localstorage
+
+        let getemail=localStorage.getItem('useremail')
+        let getpassword=localStorage.getItem('userpassword')
+
+        if(lemail.value != getemail){
+
+          lemail.style.borderColor='red'
+          email_err.innerHTML='*Email does\'nt exist'
+          email_err.style.color='red'
+          return false
+        }
+        else{
+          lemail.style.borderColor=''
+          email_err.innerHTML=''
+          email_err.style.color=''
+
+
+        }
+        if(lpassword.value != getpassword){
+
+          lpassword.style.borderColor='red'
+          password_err.innerHTML='*Password does\'nt exist'
+          password_err.style.color='red'
+          return false
+        }
+        else{
+          lpassword.style.borderColor=''
+          password_err.style.color=''
+          password_err.innerHTML=''
+        }   
+
+
+      }
+
+    </script>
+</body>
+</html>
